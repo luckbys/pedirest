@@ -136,7 +136,7 @@ export function WaiterView({ notify }: { notify: (message: string) => void }) {
       <div className="section-heading"><div><h2>Mesas do salão</h2><p>Selecione uma mesa para iniciar um pedido.</p></div><div className="legend"><span><i className="free" /> Livre</span><span><i className="busy" /> Ocupada</span><span><i className="ready" /> Pronto</span></div></div>
       <div className="table-grid">
         {tables.map((table) => <button key={table.id} className={`table-card table-${table.status}`} onClick={() => beginOrder(table)}>
-          <span className="table-number">{table.number}</span><span className="table-state">{table.status === 'free' ? 'Livre' : table.status === 'ready' ? 'Pedido pronto' : table.status === 'payment' ? 'Fechamento' : table.status === 'preparing' ? 'Em preparo' : 'Ocupada'}</span>
+          <span className="table-visual"><TableIcon /><strong>{table.number}</strong></span><span className="table-state">{table.status === 'free' ? 'Livre' : table.status === 'ready' ? 'Pedido pronto' : table.status === 'payment' ? 'Fechamento' : table.status === 'preparing' ? 'Em preparo' : 'Ocupada'}</span>
           <span className="table-meta"><UsersRound size={15} /> {table.seats} lugares</span>{table.tabNumber && <span className="tab-label">#{table.tabNumber}</span>}
           {table.status === 'free' && <CirclePlus className="table-plus" />}
         </button>)}
@@ -144,6 +144,17 @@ export function WaiterView({ notify }: { notify: (message: string) => void }) {
       <MobileNav active="home" onHome={() => setScreen('home')} onNew={() => beginOrder()} onOrders={() => setScreen('orders')} ready={readyOrders.length} />
     </div>
   )
+}
+
+function TableIcon() {
+  return <svg viewBox="0 0 120 88" aria-hidden="true" focusable="false">
+    <rect className="table-svg-chair" x="48" y="2" width="24" height="13" rx="6" />
+    <rect className="table-svg-chair" x="48" y="73" width="24" height="13" rx="6" />
+    <rect className="table-svg-chair" x="8" y="32" width="13" height="24" rx="6" />
+    <rect className="table-svg-chair" x="99" y="32" width="13" height="24" rx="6" />
+    <circle className="table-svg-surface" cx="60" cy="44" r="27" />
+    <circle className="table-svg-line" cx="60" cy="44" r="27" />
+  </svg>
 }
 
 function MobileNav({ active, onHome, onNew, onOrders, ready }: { active: string; onHome: () => void; onNew: () => void; onOrders: () => void; ready: number }) {
