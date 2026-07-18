@@ -23,7 +23,17 @@ interface StoreValue {
 const StoreContext = createContext<StoreValue | null>(null)
 const STORAGE_KEY = 'pedirest-demo-v1'
 
+function makeId() {
+  if (typeof globalThis.crypto?.randomUUID === 'function') {
+    return globalThis.crypto.randomUUID()
+  }
+  return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 12)}`
+}
+
 function getInitialState() {
+  if (typeof window === 'undefined') {
+    return { orders: initialOrders, tables: initialTables, products: seededProducts }
+  }
   try {
     const saved = localStorage.getItem(STORAGE_KEY)
     if (saved) return JSON.parse(saved) as { orders: Order[]; tables: RestaurantTable[]; products: Product[] }
@@ -46,11 +56,11 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   function createOrder({ table, tabNumber, items, notes }: CreateOrderInput) {
     const now = new Date().toISOString()
     const displayId = Math.max(100, ...orders.map((item) => item.displayId)) + 1
-    const id = crypto.randomUUID()
+    const id = makeId()
     const order: Order = {
       id,
       displayId,
-      idempotencyKey: crypto.randomUUID(),
+      idempotencyKey: makeId(),
       tableId: table.id,
       tableNumber: table.number,
       tabNumber,
@@ -59,7 +69,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       priority: 'normal',
       notes,
       items: items.map(({ product, quantity, notes: itemNotes }) => ({
-        id: crypto.randomUUID(),
+        id: makeId(),
         productId: product.id,
         name: product.name,
         quantity,
