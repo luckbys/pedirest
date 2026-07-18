@@ -1,0 +1,10 @@
+{
+  "name": "PediRest — Pedidos em tempo real",
+  "short_name": "PediRest",
+  "description": "Gestão de pedidos entre garçons, produção e caixa.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f4f2eb",
+  "theme_color": "#111714",
+  "icons": [{ "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+}
