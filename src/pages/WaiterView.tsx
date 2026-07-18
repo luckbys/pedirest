@@ -147,13 +147,17 @@ export function WaiterView({ notify }: { notify: (message: string) => void }) {
 }
 
 function TableIcon() {
-  return <svg viewBox="0 0 120 88" aria-hidden="true" focusable="false">
-    <rect className="table-svg-chair" x="48" y="2" width="24" height="13" rx="6" />
-    <rect className="table-svg-chair" x="48" y="73" width="24" height="13" rx="6" />
-    <rect className="table-svg-chair" x="8" y="32" width="13" height="24" rx="6" />
-    <rect className="table-svg-chair" x="99" y="32" width="13" height="24" rx="6" />
-    <circle className="table-svg-surface" cx="60" cy="44" r="27" />
-    <circle className="table-svg-line" cx="60" cy="44" r="27" />
+  return <svg viewBox="0 0 160 92" aria-hidden="true" focusable="false">
+    <path className="table-svg-stroke" d="M20 13 28 82" />
+    <rect className="table-svg-solid" x="25" y="48" width="42" height="13" rx="6.5" />
+    <path className="table-svg-stroke" d="M62 57v25" />
+    <path className="table-svg-detail" d="M29 69h31" />
+    <path className="table-svg-stroke" d="m140 13-8 69" />
+    <rect className="table-svg-solid" x="93" y="48" width="42" height="13" rx="6.5" />
+    <path className="table-svg-stroke" d="M98 57v25" />
+    <path className="table-svg-detail" d="M100 69h31" />
+    <rect className="table-svg-solid" x="55" y="28" width="50" height="12" rx="6" />
+    <rect className="table-svg-solid" x="75" y="37" width="10" height="46" rx="3" />
   </svg>
 }
 
