@@ -136,7 +136,7 @@ export function WaiterView({ notify }: { notify: (message: string) => void }) {
       <div className="section-heading"><div><h2>Mesas do salão</h2><p>Selecione uma mesa para iniciar um pedido.</p></div><div className="legend"><span><i className="free" /> Livre</span><span><i className="busy" /> Ocupada</span><span><i className="ready" /> Pronto</span></div></div>
       <div className="table-grid">
         {tables.map((table) => <button key={table.id} className={`table-card table-${table.status}`} onClick={() => beginOrder(table)}>
-          <span className="table-number">{table.number}</span><span className="table-state">{table.status === 'free' ? 'Livre' : table.status === 'ready' ? 'Pedido pronto' : table.status === 'payment' ? 'Fechamento' : table.status === 'preparing' ? 'Em preparo' : 'Ocupada'}</span>
+          <span className="table-visual"><TableIcon /><strong>{table.number}</strong></span><span className="table-state">{table.status === 'free' ? 'Livre' : table.status === 'ready' ? 'Pedido pronto' : table.status === 'payment' ? 'Fechamento' : table.status === 'preparing' ? 'Em preparo' : 'Ocupada'}</span>
           <span className="table-meta"><UsersRound size={15} /> {table.seats} lugares</span>{table.tabNumber && <span className="tab-label">#{table.tabNumber}</span>}
           {table.status === 'free' && <CirclePlus className="table-plus" />}
         </button>)}
@@ -144,6 +144,21 @@ export function WaiterView({ notify }: { notify: (message: string) => void }) {
       <MobileNav active="home" onHome={() => setScreen('home')} onNew={() => beginOrder()} onOrders={() => setScreen('orders')} ready={readyOrders.length} />
     </div>
   )
+}
+
+function TableIcon() {
+  return <svg viewBox="0 0 160 92" aria-hidden="true" focusable="false">
+    <path className="table-svg-stroke" d="M20 13 28 82" />
+    <rect className="table-svg-solid" x="25" y="48" width="42" height="13" rx="6.5" />
+    <path className="table-svg-stroke" d="M62 57v25" />
+    <path className="table-svg-detail" d="M29 69h31" />
+    <path className="table-svg-stroke" d="m140 13-8 69" />
+    <rect className="table-svg-solid" x="93" y="48" width="42" height="13" rx="6.5" />
+    <path className="table-svg-stroke" d="M98 57v25" />
+    <path className="table-svg-detail" d="M100 69h31" />
+    <rect className="table-svg-solid" x="55" y="28" width="50" height="12" rx="6" />
+    <rect className="table-svg-solid" x="75" y="37" width="10" height="46" rx="3" />
+  </svg>
 }
 
 function MobileNav({ active, onHome, onNew, onOrders, ready }: { active: string; onHome: () => void; onNew: () => void; onOrders: () => void; ready: number }) {
